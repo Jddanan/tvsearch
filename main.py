@@ -29,8 +29,9 @@ def index():
 @route('/browse')
 def browse():
     sectionTemplate = "./templates/browse.tpl"
-    sectionData = ""
-    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={})
+    sectionData = [utils.getJsonFromFile(x) for x in utils.AVAILABE_SHOWS]
+    sectionData.sort(key=lambda x: x["name"], reverse=False)
+    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
 @route('/browse/show/')
