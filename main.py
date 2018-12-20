@@ -34,11 +34,30 @@ def browse():
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
-@route('/show/<filepath>')
-def browse_show(filepath):
+@route('/show/<showid>')
+def browse_show(showid):
     sectionTemplate = "./templates/show.tpl"
-    sectionData = utils.getJsonFromFile(int(filepath))
+    sectionData = utils.getJsonFromFile(int(showid))
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+
+
+@route('/ajax/show/<showid>')
+def browse_show(showid):
+    result = utils.getJsonFromFile(int(showid))
+    return template("./templates/show.tpl", result=result)
+
+
+@route('/show/<showid>/episode/<episodeid>')
+def browse_show(showid, episodeid):
+    sectionTemplate = "./templates/episode.tpl"
+    result = utils.getJsonFromFile(int(showid))
+    for ep in result['_embedded']['episodes']:
+        if ep["id"] == int(episodeid):
+            sectionData = ep
+    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+
+
+@route('/ajax/show/<showid>')
 
 
 @route('/search')
