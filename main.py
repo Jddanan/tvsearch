@@ -34,10 +34,10 @@ def browse():
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
-@route('/show/<showid>')
-def browse_show(showid):
+@route('/show/<filepath>')
+def browse_show(filepath):
     sectionTemplate = "./templates/show.tpl"
-    sectionData = utils.getJsonFromFile(int(float(showid)))
+    sectionData = utils.getJsonFromFile(int(filepath))
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
