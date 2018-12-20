@@ -38,7 +38,10 @@ def browse():
 def browse_show(showid):
     sectionTemplate = "./templates/show.tpl"
     sectionData = utils.getJsonFromFile(int(showid))
-    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+    if showid not in utils.AVAILABE_SHOWS:
+        return error404(error)
+    else:
+        return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
 @route('/ajax/show/<showid>')
@@ -54,6 +57,8 @@ def browse_show(showid, episodeid):
     for ep in result['_embedded']['episodes']:
         if ep["id"] == int(episodeid):
             sectionData = ep
+        else:
+            return error404(error)
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
