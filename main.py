@@ -37,8 +37,14 @@ def browse():
 @route('/show/<showid>')
 def browse_show(showid):
     sectionTemplate = "./templates/show.tpl"
-    sectionData = utils.getJsonFromFile(int(float(showid)))
+    sectionData = utils.getJsonFromFile(int(showid))
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+
+
+@route('/ajax/show/<showid>')
+def browse_show(showid):
+    result = utils.getJsonFromFile(int(showid))
+    return template("./templates/show.tpl", result=result)
 
 
 @route('/search')
