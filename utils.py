@@ -21,7 +21,6 @@ def getJsonFromFile(showName):
 
 def getListOfShows():
     result = [getJsonFromFile(x) for x in AVAILABE_SHOWS]
-    result.sort(key=lambda x: x["name"], reverse=False)
     return result
 
 # def getListOfEpisode(showid, episodeid, error):

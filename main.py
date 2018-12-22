@@ -32,6 +32,16 @@ def browse():
     sectionData = utils.getListOfShows()
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
+@route('/browse/<order>')
+def browse(order):
+    sectionTemplate = "./templates/browse.tpl"
+    sectionData = utils.getListOfShows()
+    if order == 'name':
+        sectionData.sort(key=lambda x: x["name"], reverse=False)
+    elif order == 'ratings':
+        sectionData.sort(key=lambda x: x['rating']['average'], reverse=True)
+    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+
 
 @route('/show/<showid>')
 def browse_show(showid):
@@ -91,7 +101,6 @@ def post_search():
                     "text": str(show["name"] + ": " + episode["name"])
                          }
                 results.append(match)
-    print(results)
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={}, query=query, results=results)
 
 
