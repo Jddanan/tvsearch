@@ -1,8 +1,10 @@
 from bottle import template
+import requests
 import json
 
 JSON_FOLDER = './data'
 AVAILABE_SHOWS = ["7", "66", "73", "82", "112", "143", "175", "216", "1371", "1871", "2993", "305"]
+URL_API = "http://api.tvmaze.com/shows/"
 
 
 def getVersion():
@@ -22,11 +24,3 @@ def getJsonFromFile(showName):
 def getListOfShows():
     result = [getJsonFromFile(x) for x in AVAILABE_SHOWS]
     return result
-
-# def getListOfEpisode(showid, episodeid, error):
-#     data = getJsonFromFile(int(showid))
-#     for ep in data['_embedded']['episodes']:
-#         if ep["id"] == int(episodeid):
-#             result = ep
-#         else:
-#             return error
