@@ -27,10 +27,8 @@ def index():
 
 
 @route('/browse')
-def browse():
-    sectionTemplate = "./templates/browse.tpl"
-    sectionData = utils.getListOfShows()
-    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
+def redirect_browse():
+    redirect("/browse/name")
 
 @route('/browse/<order>')
 def browse(order):
@@ -86,7 +84,7 @@ def search():
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={})
 
 
-@route('/search', method="POST")
+@post('/search')
 def post_search():
     sectionTemplate = "./templates/search_result.tpl"
     query = request.forms.get('q')
