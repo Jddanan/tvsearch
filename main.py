@@ -76,6 +76,14 @@ def search():
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={})
 
 
+@route('/search', method="POST")
+def post_search():
+    sectionTemplate = "./templates/search_result.tpl"
+    query = request.forms.get('q')
+    print(query)
+    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={}, query=query, results={})
+
+
 @error(404)
 def error404(error):
     sectionTemplate = "./templates/404.tpl"
