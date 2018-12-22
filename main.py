@@ -29,8 +29,7 @@ def index():
 @route('/browse')
 def browse():
     sectionTemplate = "./templates/browse.tpl"
-    sectionData = [utils.getJsonFromFile(x) for x in utils.AVAILABE_SHOWS]
-    sectionData.sort(key=lambda x: x["name"], reverse=False)
+    sectionData = utils.getListOfShows()
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData=sectionData)
 
 
@@ -82,6 +81,6 @@ def error404(error):
     sectionTemplate = "./templates/404.tpl"
     return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={})
 
-#run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
-run(host='localhost', port=7000)
 
+# run(host='0.0.0.0', port=os.environ.get('PORT', 5000))
+run(host='localhost', port=7000)

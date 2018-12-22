@@ -17,3 +17,17 @@ def getJsonFromFile(showName):
     except Exception as e:
         print(e)
         return "{}"
+
+
+def getListOfShows():
+    result = [getJsonFromFile(x) for x in AVAILABE_SHOWS]
+    result.sort(key=lambda x: x["name"], reverse=False)
+    return result
+
+# def getListOfEpisode(showid, episodeid, error):
+#     data = getJsonFromFile(int(showid))
+#     for ep in data['_embedded']['episodes']:
+#         if ep["id"] == int(episodeid):
+#             result = ep
+#         else:
+#             return error
