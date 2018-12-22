@@ -80,8 +80,19 @@ def search():
 def post_search():
     sectionTemplate = "./templates/search_result.tpl"
     query = request.forms.get('q')
-    print(query)
-    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={}, query=query, results={})
+    listOfShows = utils.getListOfShows()
+    results = []
+    for show in listOfShows:
+        for episode in show['_embedded']['episodes']:
+            if query in episode["name"] or (episode["summary"] is not None and query in episode["summary"]):
+                match = {
+                    "showid": show["id"],
+                    "episodeid": episode["id"],
+                    "text": str(show["name"] + ": " + episode["name"])
+                         }
+                results.append(match)
+    print(results)
+    return template("./pages/index.html", version=utils.getVersion(), sectionTemplate=sectionTemplate, sectionData={}, query=query, results=results)
 
 
 @error(404)
